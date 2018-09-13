@@ -65,7 +65,7 @@ final class PayViewController: BaseViewController {
     }
     
     @objc private func settingsButtonTapped() {
-        let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
+		let preferredStyle: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Location: \(authorizedLocation.name)", message: nil, preferredStyle: preferredStyle)
         
         alertController.addAction(UIAlertAction(title: "Reader Settings", style: .default) { (action) in

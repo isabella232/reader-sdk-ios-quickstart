@@ -28,7 +28,7 @@ class TextField: UITextField {
             guard let newValue = placeholder else { return }
             accessibilityLabel = newValue
             attributedPlaceholder = NSAttributedString(string: newValue, attributes: [
-                NSAttributedStringKey.foregroundColor: Color.placeholder
+                .foregroundColor: Color.placeholder
             ])
         }
     }

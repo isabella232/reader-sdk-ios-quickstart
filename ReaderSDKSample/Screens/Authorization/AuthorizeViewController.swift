@@ -110,7 +110,7 @@ private extension AuthorizeViewController {
         self.delegate?.authorizeViewControllerDidCompleteAuthorization(self)
     }
     
-    func triggerHaptic(_ type: UINotificationFeedbackType) {
+	func triggerHaptic(_ type: UINotificationFeedbackGenerator.FeedbackType) {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(type)
     }

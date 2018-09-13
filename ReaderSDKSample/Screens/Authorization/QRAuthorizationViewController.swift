@@ -64,7 +64,7 @@ class QRAuthorizationViewController: UIViewController {
         
         // Observe changes to device orientation
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVideoOrientation), name: Notification.Name.UIDeviceOrientationDidChange, object: UIDevice.current)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateVideoOrientation), name: UIDevice.orientationDidChangeNotification, object: UIDevice.current)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,7 +163,7 @@ extension QRAuthorizationViewController: AVCaptureMetadataOutputObjectsDelegate 
                 DispatchQueue.main.async {
                     self.startCaptureSession()
                 }
-            } else if let url = URL(string: UIApplicationOpenSettingsURLString) {
+			} else if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }

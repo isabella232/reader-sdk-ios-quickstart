@@ -21,7 +21,7 @@ import SquareReaderSDK
 
 final class AppViewController: UIViewController {
     var currentViewController: UIViewController? {
-        return childViewControllers.first
+		return children.first
     }
     
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ final class AppViewController: UIViewController {
         
         // The user may be directed to the Settings app to change their permissions.
         // When they return, update the current screen.
-        NotificationCenter.default.addObserver(self, selector: #selector(updateScreen), name: .UIApplicationWillEnterForeground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateScreen), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         // The app finished launching, so show the Square logo animation
         let squareLogoAnimationViewController = SquareLogoAnimationViewController()
@@ -158,26 +158,26 @@ extension AppViewController {
             
         } else if currentViewController == nil {
             // Add the view controller as a child view controller
-            addChildViewController(newViewController)
+			addChild(newViewController)
             newViewController.view.frame = view.bounds
             view.addSubview(newViewController.view)
-            newViewController.didMove(toParentViewController: self)
+			newViewController.didMove(toParent: self)
         }
     }
     
     /// Transition from one child view controller to another
     private func transition(from fromViewController: UIViewController, to toViewController: UIViewController) {
         // Remove any leftover child view controllers
-        childViewControllers.forEach { (childViewController) in
+		children.forEach { (childViewController) in
             if childViewController != fromViewController {
-                childViewController.willMove(toParentViewController: nil)
+				childViewController.willMove(toParent: nil)
                 childViewController.view.removeFromSuperview()
-                childViewController.removeFromParentViewController()
+				childViewController.removeFromParent()
             }
         }
         
-        addChildViewController(toViewController)
-        fromViewController.willMove(toParentViewController: nil)
+		addChild(toViewController)
+		fromViewController.willMove(toParent: nil)
     
         toViewController.view.alpha = 0
         toViewController.view.layoutIfNeeded()
@@ -189,8 +189,8 @@ extension AppViewController {
         
         let completion: (Bool) -> Void = { _ in
             fromViewController.view.removeFromSuperview()
-            fromViewController.removeFromParentViewController()
-            toViewController.didMove(toParentViewController: self)
+			fromViewController.removeFromParent()
+			toViewController.didMove(toParent: self)
         }
         
         transition(from: fromViewController,
